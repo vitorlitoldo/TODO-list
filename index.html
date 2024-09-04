@@ -7,24 +7,24 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/new-task.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/footer.css">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/color-theme.css">
 
 </head>
 <body>
     <div class="container">
         <header>
             <div class="header">
-                <img src="images/discurso-motivacional.png" alt="motivational">
-                
                 <h1>TODO-list</h1>
                 <div class="theme-div">
                     <input type="checkbox" class="theme" id="toggle-theme">
                     <label class="switch" for="toggle-theme">
-                        <i class="fas fa-moon"></i>
                         <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
                         <div class="ball"></div>
                     </label>
                 </div>
@@ -63,12 +63,15 @@
                     </li>
                 </ul>
             </div>
+            <div class="overlay" id="overlay"></div>
             <div class="new-task">
+                <h2 class="title">New Task<img src="images/perto.png" alt="close"></h2>
                 <ul>
                     <li>Task Name: <input type="text" id="task-name"></li>
                     <li>Start Date: <input type="date" id="start-date"></li>
                     <li>Final Date: <input type="date" id="final-date"></li>
                 </ul>
+                <button class="create-task">Confirm</button>
             </div>
         </main>
         
@@ -86,6 +89,7 @@
 
     <script src="scripts/app.js"></script>
     <script src="scripts/color-theme.js"></script>
+    <script src="scripts/new-task.js"></script>
     <script src="https://kit.fontawesome.com/998c60ef77.js" crossorigin="anonymous"></script>
     
 </body>
