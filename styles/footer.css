@@ -1,21 +1,19 @@
 footer {
     display: flex;
     justify-content: space-between;
-    width: 90%;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 50px;
+    width: 95%;
+    margin: 20px auto auto auto;
 }
 
 .add-task {
     width: 200px;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 12px;
     background-color: #4BAE4F;
     border: none;
     color: white;
     font-size: medium;
-    transition: 100ms;
+    transition: 150ms;
 }
 
 .add-task:hover {

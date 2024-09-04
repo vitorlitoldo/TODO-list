@@ -34,23 +34,33 @@
         <main>
             <div class="organize-tasks">
                 <ul class="task-options">
-                    <li type="none">Task Name</li>
-                    <li type="none">Start Date</li>
-                    <li type="none">End Date</li>
+                    <li>Task Name</li>
                 </ul>
-                <select name="Filtrar" id="filter-list" class="filter-list">
-                    <option value="all">All</option>
-                    <option value="not-finished">Not Finished</option>
-                    <option value="finished">Finished</option>
-                </select>
+                <ul class="task-options">
+                    <li>Start Date</li>
+                </ul>
+                <ul class="task-options">
+                    <li>End Date</li>
+                </ul>
+                <ul class="task-options">
+                    <li>
+                        <select name="Filtrar" id="filter-list">
+                            <option value="all">All</option>
+                            <option value="not-finished">Not Finished</option>
+                            <option value="finished">Finished</option>
+                        </select>
+                    </li>
+                </ul>
             </div>
-            <div>
-                <ul class="task-list" class="not-completed">
+            <div class="task-list">
+                <ul class="task-item" class="not-completed">
                     <li class="task-name">Lição de casa</li>
                     <li class="task-start">26/08/2024</li>
                     <li class="task-end">29/08/2024</li>
-                    <li><img src="/images/correto.png" alt="completed"></li> 
-                    <li><img src="/images/excluir.png" alt="delete"></li>
+                    <li class="task-options">
+                        <img src="/images/correto.png" alt="completed">
+                        <img src="/images/excluir.png" alt="delete">
+                    </li>
                 </ul>
             </div>
             <div class="new-task">
