@@ -1,0 +1,43 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 50px;
+}
+
+.add-task {
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #4BAE4F;
+    border: none;
+    color: white;
+    font-size: medium;
+    transition: 100ms;
+}
+
+.add-task:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.progress {
+    display: flex;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 25px;
+    margin-left: 10px;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.progress-bar div {
+    background-color: #4BAE4F;
+    width: 50%;
+    height: 100%;
+    border-radius: 25px;
+}

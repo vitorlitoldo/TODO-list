@@ -1,0 +1,23 @@
+.header {
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: #171717;
+    justify-content: space-between;
+}
+
+.header h1 {
+    align-content: center;
+}
+
+.theme-div {
+    align-content: center;
+    margin-right: 30px;
+}
+
+.header img {
+    width: 45px;
+    height: 45px;
+    margin-top: 20px;
+    margin-left: 30px;
+}

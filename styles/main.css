@@ -1,0 +1,35 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 95%;
+    height: 600px;
+    border-radius: 30px;
+    background-color: #171717;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.organize-tasks {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.task-options {
+    display: flex;
+    height: 20px;
+}
+
+.task-list {
+    display: flex;
+}
+
+.task-list li img {
+    width: 30px;
+}
+
+.new-task {
+    display: none;
+}

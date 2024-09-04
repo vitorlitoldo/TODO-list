@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOlist</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header">
+                <img src="images/discurso-motivacional.png" alt="motivational">
+                
+                <h1>TODO-list</h1>
+                <div class="theme-div">
+                    <input type="checkbox" class="theme" id="toggle-theme">
+                    <label class="switch" for="toggle-theme">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                        <div class="ball"></div>
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="organize-tasks">
+                <ul class="task-options">
+                    <li type="none">Task Name</li>
+                    <li type="none">Start Date</li>
+                    <li type="none">End Date</li>
+                </ul>
+                <select name="Filtrar" id="filter-list" class="filter-list">
+                    <option value="all">All</option>
+                    <option value="not-finished">Not Finished</option>
+                    <option value="finished">Finished</option>
+                </select>
+            </div>
+            <div>
+                <ul class="task-list" class="not-completed">
+                    <li class="task-name">Lição de casa</li>
+                    <li class="task-start">26/08/2024</li>
+                    <li class="task-end">29/08/2024</li>
+                    <li><img src="/images/correto.png" alt="completed"></li> 
+                    <li><img src="/images/excluir.png" alt="delete"></li>
+                </ul>
+            </div>
+            <div class="new-task">
+                <ul>
+                    <li>Task Name: <input type="text" id="task-name"></li>
+                    <li>Start Date: <input type="date" id="start-date"></li>
+                    <li>Final Date: <input type="date" id="final-date"></li>
+                </ul>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="progress">
+                Task Progress: <div class="progress-bar">
+                    <div></div>
+                </div>
+            </div>
+            <div>
+                <button class="add-task">Add Task +</button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/color-theme.js"></script>
+    <script src="https://kit.fontawesome.com/998c60ef77.js" crossorigin="anonymous"></script>
+    
+</body>
+</html>

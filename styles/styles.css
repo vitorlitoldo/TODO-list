@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0; 
+    padding: 0; 
+    background-color: #212121;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+li {
+    list-style: none;
+}
