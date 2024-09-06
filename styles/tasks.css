@@ -25,6 +25,41 @@
     z-index: 20; 
 }
 
+.confirm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; 
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #222; 
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: none; 
+    z-index: 20; 
+}
+
+.confirm button {
+    width: 100%;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    align-content: center;
+    cursor: pointer;
+    transition: 150ms; 
+}
+
+.confirm-btn {
+    background-color: #4BAE4F; 
+}
+
+.cancel-btn {
+    background-color: #E6123A; 
+}
+
 .new-task h2 {
     margin-top: 0;
 }
@@ -62,6 +97,10 @@
 .new-task img {
     width: 24px;
     height: 24px;
+}
+
+.confirm button:hover {
+    opacity: 80%;
 }
 
 .new-task img:hover {

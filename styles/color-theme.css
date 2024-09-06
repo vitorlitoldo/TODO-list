@@ -55,6 +55,12 @@ body.white .new-task input {
     color: #000;
 }
 
+body.white .confirm {
+    border: 2px solid #000;
+    background-color: #fff;
+    color: #000;
+}
+
 body.white .pages button {
     color: #000;
     background-color: #fff;
