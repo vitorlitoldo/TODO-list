@@ -45,11 +45,11 @@ main {
     transition: 150ms;
 }
 
-.task-list:hover {
+.task-item:hover {
     background-color: #212121;
 }
 
-.task-list:hover img {
+.task-item:hover img {
     opacity: 100%;
 }
 

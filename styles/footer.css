@@ -39,3 +39,31 @@ footer {
     height: 100%;
     border-radius: 25px;
 }
+
+.pages {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.pages button {
+    width: 100px;
+    height: 40px;
+    border-radius: 12px;
+    background-color: #171717;
+    border: none;
+    color: white;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.pages button:hover {
+    opacity: 80%;
+}
+
+.btn-previous {
+    margin-right: 10px;
+}
+
+.btn-next {
+    margin-left: 10px;
+}
