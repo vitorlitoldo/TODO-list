@@ -46,6 +46,50 @@ function doYouWantToConfirm(buttonElement, taskName)
     }
 }
 
+function displayPageNumbers(filteredArray)
+{
+    const totalPages = Math.ceil(filteredArray.length / tasksPerPage)
+    const $numberPage = document.querySelector('.number-page')
+
+    if (totalPages > 1)
+    {
+        $numberPage.innerHTML = `
+        <button class="btn-previous" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+        <span>${currentPage} of ${totalPages}</span>
+        <button class="btn-next" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+        `
+    }
+    else
+    {
+        $numberPage.innerHTML = ''
+    }
+
+    const $btnPrevious = document.querySelector('.btn-previous')
+    const $btnNext = document.querySelector('.btn-next')
+
+    if ($btnPrevious)
+    {
+        $btnPrevious.addEventListener('click', () => {
+            if (currentPage > 1)
+            {
+                currentPage--
+                displayList()
+            }
+        })
+    }
+
+    if ($btnNext)
+        {
+            $btnNext.addEventListener('click', () => {
+                if (currentPage < totalPages)
+                {
+                    currentPage++
+                    displayList()
+                }
+            })
+        }
+}
+
 function deleteEventListener(button)
 {
     button.removeEventListener('click', completeTask)
@@ -90,7 +134,10 @@ function displayList()
         filteredArray = arrTask.filter(item => item.isCompleted)
     }
 
-    $taskList.innerHTML = filteredArray.map(item => `
+    const startIndex = (currentPage - 1) * tasksPerPage
+    const paginatedTasks = filteredArray.slice(startIndex, startIndex + tasksPerPage)
+
+    $taskList.innerHTML = paginatedTasks.map(item => `
     <ul class="task-item ${item.isCompleted ? 'completed' : ''}">
         <li class="task-name">${item.name}</li>
         <li class="task-start">${ConstructDate(item.startDate)}</li>
@@ -115,6 +162,7 @@ function displayList()
     })
 
     updateTaskProgress()
+    displayPageNumbers(filteredArray)
 }
 
 function updateTaskProgress()
@@ -151,7 +199,10 @@ function closeOverlay(element)
 $btnAddTask.addEventListener('click', () => openOverlay($newTask))
 $closeAddTask.addEventListener('click', () => closeOverlay($newTask))
 $cancelThis.addEventListener('click', () => closeOverlay($divConfirm))
-$filterList.addEventListener('change', () => { displayList() })
+$filterList.addEventListener('change', () => {
+    currentPage = 1
+    displayList()
+})
 
 function ConstructDate(date)
 {
@@ -195,17 +246,21 @@ $btnConfirm.addEventListener('click', () => {
             {
                 alert('A task with this name already exists. Please choose a different name.')
             }
+            else if ($taskName.length > 41)
+            {
+                alert('The task name cannot be more than 41 characters.')
+            }
             else 
             {
                 arrTask.push(task)
+
+                displayList()
+                closeOverlay($newTask)
+
+                $taskNameInput.value = ''
+                $startDateInput.value = ''
+                $finalDateInput.value = ''
             }
-
-            displayList()
-            closeOverlay($newTask)
-
-            $taskNameInput.value = ''
-            $startDateInput.value = ''
-            $finalDateInput.value = ''
         }
     }
 });
