@@ -10,6 +10,8 @@ const $cancelThis = document.querySelector('.cancel-btn')
 const $filterList = document.querySelector('#filter-list')
 
 const arrTask = [];
+let currentPage = 1;
+const tasksPerPage = 9;
 
 class Task
 {
@@ -32,25 +34,31 @@ function doYouWantToConfirm(buttonElement, taskName)
     {
         openOverlay($divConfirm)
         $confirmTitle.innerHTML = 'Do you really want to put this task as completed?'
-        $confirmThis.removeEventListener('click', handleConfirmClick)
+        deleteEventListener($confirmThis)
         $confirmThis.addEventListener('click', () => completeTask(taskName))
     }
     else if (buttonElement.classList.contains('delete'))
     {
         openOverlay($divConfirm)
         $confirmTitle.innerHTML = 'Do you really want to delete this task?'
-        $confirmThis.removeEventListener('click', handleConfirmClick)
+        deleteEventListener($confirmThis)
         $confirmThis.addEventListener('click', () => deleteTask(taskName))
     }
 }
 
+function deleteEventListener(button)
+{
+    button.removeEventListener('click', completeTask)
+    button.removeEventListener('click', deleteTask)
+}
+
 function completeTask(taskName)
 {
-    const task = arrTask.find(item => item.name === taskName)
+    const taskToComplete = arrTask.find(item => item.name === taskName)
 
-    if (task) 
+    if (taskToComplete)
     {
-        task.isCompleted = true
+        taskToComplete.isCompleted = true
         displayList()
         closeOverlay($divConfirm)
     }
@@ -71,48 +79,61 @@ function deleteTask(taskName)
 function displayList()
 {
     const $filterTask = document.querySelector('#filter-list').value
+    let filteredArray = arrTask
 
-    if ($filterTask === 'all')
+    if ($filterTask === 'not-finished')
     {
-        $taskList.innerHTML = arrTask.map(item => `<ul class="task-item">
-            <li class="task-name">${item.name}</li>
-            <li class="task-start">${ConstructDate(item.startDate)}</li>
-            <li class="task-end">${ConstructDate(item.finalDate)}</li>
-            <li class="task-options">
-                <img src="/images/correto.png" alt="completed" class="correct">
-                <img src="/images/excluir.png" alt="delete" class="delete">
-            </li>
-        </ul>`).join('')
-    }
-    else if ($filterTask === 'not-finished')
-    {
-        $taskList.innerHTML = arrTask.filter(item => !item.isCompleted).map(item => `<ul class="task-item">
-            <li class="task-name">${item.name}</li>
-            <li class="task-start">${ConstructDate(item.startDate)}</li>
-            <li class="task-end">${ConstructDate(item.finalDate)}</li>
-            <li class="task-options">
-                <img src="/images/correto.png" alt="completed" class="correct">
-                <img src="/images/excluir.png" alt="delete" class="delete">
-            </li>
-        </ul>`).join('')
+        filteredArray = arrTask.filter(item => !item.isCompleted)
     }
     else if ($filterTask === 'finished')
     {
-        $taskList.innerHTML = arrTask.filter(item => item.isCompleted).map(item => `<ul class="task-item">
-            <li class="task-name">${item.name}</li>
-            <li class="task-start">${ConstructDate(item.startDate)}</li>
-            <li class="task-end">${ConstructDate(item.finalDate)}</li>
-            <li class="task-options">
-                <img src="/images/correto.png" alt="completed" class="correct">
-                <img src="/images/excluir.png" alt="delete" class="delete">
-            </li>
-        </ul>`).join('')
+        filteredArray = arrTask.filter(item => item.isCompleted)
     }
-    const $correct = document.querySelector('.correct')
-    const $delete = document.querySelector('.delete')
 
-    $correct.addEventListener('click', () => doYouWantToConfirm($correct, arrTask.name))
-    $delete.addEventListener('click', () => doYouWantToConfirm($delete, arrTask.name))
+    $taskList.innerHTML = filteredArray.map(item => `
+    <ul class="task-item ${item.isCompleted ? 'completed' : ''}">
+        <li class="task-name">${item.name}</li>
+        <li class="task-start">${ConstructDate(item.startDate)}</li>
+        <li class="task-end">${ConstructDate(item.finalDate)}</li>
+        <li class="task-options">
+            <img src="/images/correto.png" alt="completed" class="correct">
+            <img src="/images/excluir.png" alt="delete" class="delete">
+        </li>
+    </ul>`).join('')
+
+    const $correctButtons = document.querySelectorAll('.correct')
+    const $deleteButtons = document.querySelectorAll('.delete')
+
+    $correctButtons.forEach(button => {
+        const taskName = button.closest('.task-item').querySelector('.task-name').textContent
+        button.addEventListener('click', () => doYouWantToConfirm(button, taskName))
+    })
+
+    $deleteButtons.forEach(button => {
+        const taskName = button.closest('.task-item').querySelector('.task-name').textContent
+        button.addEventListener('click', () => doYouWantToConfirm(button, taskName))
+    })
+
+    updateTaskProgress()
+}
+
+function updateTaskProgress()
+{
+    const $taskProgress = document.querySelector('.progress-bar div')
+    const totalTasks = arrTask.length
+    let percentage
+
+    if (totalTasks === 0)
+    {
+        percentage = 0
+    }
+    else 
+    {
+        const completedTasks = arrTask.filter(item => item.isCompleted).length
+        percentage = (completedTasks / totalTasks) * 100
+    }
+
+    $taskProgress.style.width = `${percentage}%`
 }
 
 function openOverlay(element)
@@ -168,7 +189,16 @@ $btnConfirm.addEventListener('click', () => {
         else 
         {
             const task = new Task($taskName, startDate, finalDate)
-            arrTask.push(task)
+            const taskAlreadyExist = arrTask.some(item => item.name === task.name)
+
+            if (taskAlreadyExist)
+            {
+                alert('A task with this name already exists. Please choose a different name.')
+            }
+            else 
+            {
+                arrTask.push(task)
+            }
 
             displayList()
             closeOverlay($newTask)

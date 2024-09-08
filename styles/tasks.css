@@ -117,3 +117,17 @@
     opacity: 80%;
     cursor: pointer;
 }
+
+.completed {
+    background-color: rgba(144, 238, 144, 0.5); 
+    text-decoration: line-through; 
+    transition: 150ms;
+}
+
+.task-item.completed:hover {
+    background-color: rgba(144, 238, 144, 0.3);
+}
+
+.task-item.completed .correct {
+    display: none;
+}
