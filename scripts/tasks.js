@@ -13,6 +13,13 @@ const arrTask = [];
 let currentPage = 1;
 const tasksPerPage = 9;
 
+window.onload = function() {
+    const localArrTask = JSON.parse(localStorage.getItem('arrTask')) || []
+    arrTask.push(...localArrTask)
+    
+    displayList()
+}
+
 class Task
 {
     constructor(taskName, startDate, finalDate)
@@ -21,9 +28,15 @@ class Task
         this.startDate = startDate
         this.finalDate = finalDate
         this.isCompleted = false
-        this.isOverdue = false
+        this.isOverdue = isOverdue(finalDate)
         this.isNearDeadline = false
     }
+}
+
+function isOverdue(finalDate)
+{
+    const currentDate = new Date()
+    return new Date(finalDate) < currentDate
 }
 
 function doYouWantToConfirm(buttonElement, taskName)
@@ -103,6 +116,7 @@ function completeTask(taskName)
     if (taskToComplete)
     {
         taskToComplete.isCompleted = true
+        localStorage.setItem('arrTask', JSON.stringify(arrTask))
         displayList()
         closeOverlay($divConfirm)
     }
@@ -115,6 +129,9 @@ function deleteTask(taskName)
     if (index !== -1)
     {
         arrTask.splice(index, 1)
+
+        localStorage.setItem('arrTask', JSON.stringify(arrTask))
+
         displayList()
         closeOverlay($divConfirm)
     }
@@ -134,14 +151,16 @@ function displayList()
         filteredArray = arrTask.filter(item => item.isCompleted)
     }
 
+    filteredArray.forEach(item => item.isOverdue = isOverdue(item.finalDate))
+
     const startIndex = (currentPage - 1) * tasksPerPage
     const paginatedTasks = filteredArray.slice(startIndex, startIndex + tasksPerPage)
 
     $taskList.innerHTML = paginatedTasks.map(item => `
-    <ul class="task-item ${item.isCompleted ? 'completed' : ''}">
+    <ul class="task-item ${item.isCompleted ? 'completed' : ''} ${item.isOverdue && !item.isCompleted ? 'overdue' : ''}">
         <li class="task-name">${item.name}</li>
-        <li class="task-start">${ConstructDate(item.startDate)}</li>
-        <li class="task-end">${ConstructDate(item.finalDate)}</li>
+        <li class="task-start">${ConstructDate(new Date(item.startDate))}</li>
+        <li class="task-end">${ConstructDate(new Date(item.finalDate))}</li>
         <li class="task-options">
             <img src="/images/correto.png" alt="completed" class="correct">
             <img src="/images/excluir.png" alt="delete" class="delete">
@@ -207,7 +226,7 @@ $filterList.addEventListener('change', () => {
 function ConstructDate(date)
 {
     const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
-    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+    const day = date.getDate() + 1 < 10 ? `0${date.getDate() + 1}` : date.getDate() + 1
     const year = date.getFullYear()
 
     return `${month}/${day}/${year}`
@@ -253,6 +272,8 @@ $btnConfirm.addEventListener('click', () => {
             else 
             {
                 arrTask.push(task)
+
+                localStorage.setItem('arrTask', JSON.stringify(arrTask))
 
                 displayList()
                 closeOverlay($newTask)
