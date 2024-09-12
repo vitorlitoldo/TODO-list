@@ -35,8 +35,11 @@ class Task
 
 function isOverdue(finalDate)
 {
-    const currentDate = new Date()
-    return new Date(finalDate) < currentDate
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); 
+    const taskFinalDate = new Date(finalDate);
+    taskFinalDate.setHours(0, 0, 0, 0);
+    return taskFinalDate < currentDate;
 }
 
 function doYouWantToConfirm(buttonElement, taskName)
