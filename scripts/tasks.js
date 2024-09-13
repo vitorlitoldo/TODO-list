@@ -38,6 +38,7 @@ function isOverdue(finalDate)
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0); 
     const taskFinalDate = new Date(finalDate);
+    taskFinalDate.setDate(taskFinalDate.getDate() + 1)
     taskFinalDate.setHours(0, 0, 0, 0);
     return taskFinalDate < currentDate;
 }
