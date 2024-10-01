@@ -14,6 +14,12 @@ let currentPage = 1;
 const tasksPerPage = 9;
 
 window.onload = function() {
+    const isWhite = JSON.parse(localStorage.getItem('isWhite'))
+    if (isWhite && !$body.classList.contains('white'))
+    {
+        $body.classList.add('white')
+    }
+    
     const localArrTask = JSON.parse(localStorage.getItem('arrTask')) || []
     arrTask.push(...localArrTask)
     
